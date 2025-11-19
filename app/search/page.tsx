@@ -11,6 +11,9 @@ import { Sidebar } from "@/components/layout/sidebar";
 import { FloatingActions } from "@/components/chat/floating-actions";
 import { TypingIndicator } from "@/components/chat/typing-indicator";
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 function SearchPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
