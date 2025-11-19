@@ -1,26 +1,201 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: #20c997;
+  --primary-hover: #1bb589;
+  --primary-light: #e6f9f4;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer utilities {
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
-}
+  
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+  
+  @keyframes glow {
+    0%, 100% {
+      box-shadow: 0 0 5px rgba(32, 201, 151, 0.5), 0 0 10px rgba(32, 201, 151, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 10px rgba(32, 201, 151, 0.8), 0 0 20px rgba(32, 201, 151, 0.5);
+    }
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  .animate-fadeIn {
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  .animate-slideIn {
+    animation: slideIn 0.4s ease-out;
+  }
+  
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite;
+  }
+  
+  .shimmer {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
+  }
+  
+  .bg-primary {
+    background-color: var(--primary);
+  }
+  
+  .bg-primary-hover {
+    background-color: var(--primary-hover);
+  }
+  
+  .bg-primary-light {
+    background-color: var(--primary-light);
+  }
+  
+  .text-primary {
+    color: var(--primary);
+  }
+  
+  .border-primary {
+    border-color: var(--primary);
+  }
+  
+  /* Table Styles */
+  .prose table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 1.5rem 0;
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    border: 1px solid #e5e7eb;
+  }
+  
+  .prose thead {
+    background: linear-gradient(to bottom, #f9fafb, #f3f4f6);
+  }
+  
+  .prose th {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    font-weight: 600;
+    color: #111827;
+    border-bottom: 2px solid #d1d5db;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+  }
+  
+  .prose th:not(:last-child) {
+    border-right: 1px solid #e5e7eb;
+  }
+  
+  .prose td {
+    padding: 1rem 1.25rem;
+    color: #374151;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 0.9375rem;
+  }
+  
+  .prose td:not(:last-child) {
+    border-right: 1px solid #f3f4f6;
+  }
+  
+  .prose tbody tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .prose tbody tr {
+    transition: all 0.2s ease;
+  }
+  
+  .prose tbody tr:hover {
+    background-color: #f0fdf4;
+    transform: scale(1.01);
+  }
+  
+  .prose tbody tr:nth-child(even) {
+    background-color: #fafafa;
+  }
+  
+  .prose tbody tr:nth-child(even):hover {
+    background-color: #f0fdf4;
+  }
+  
+  /* Code Blocks */
+  .prose code {
+    background-color: #f3f4f6;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    color: #1f2937;
+    font-weight: 500;
+  }
+  
+  .prose pre {
+    background-color: #1f2937;
+    color: #f9fafb;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    position: relative;
+  }
+  
+  .prose pre code {
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+  }
+  
+  /* Gradient Text */
+  .gradient-text {
+    background: linear-gradient(135deg, #20c997 0%, #1bb589 50%, #16a085 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Glassmorphism */
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
 }
