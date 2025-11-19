@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Message } from "@/lib/types";
 import { MessageList } from "@/components/chat/message-list";
@@ -11,7 +11,7 @@ import { Sidebar } from "@/components/layout/sidebar";
 import { FloatingActions } from "@/components/chat/floating-actions";
 import { TypingIndicator } from "@/components/chat/typing-indicator";
 
-export default function SearchPage() {
+function SearchPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [messages, setMessages] = useState<Message[]>([]);
@@ -135,5 +135,24 @@ export default function SearchPage() {
         />
       </div>
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 mx-auto rounded-2xl bg-gray-50 flex items-center justify-center mb-4">
+            <svg className="w-9 h-9 text-[#20c997] animate-pulse" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18.5c-4.05-.99-7-4.96-7-9.5V8.41l7-3.89 7 3.89V11c0 4.54-2.95 8.51-7 9.5z"/>
+            </svg>
+          </div>
+          <p className="text-gray-500 text-sm">Loading...</p>
+        </div>
+      </div>
+    }>
+      <SearchPageContent />
+    </Suspense>
   );
 }
